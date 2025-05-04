@@ -1,12 +1,9 @@
 import { createServer, build } from "vite";
-import { execSync } from "child_process";
 import { platform } from "os";
-import { execa } from "execa";
+import { execa, execaCommandSync } from "execa";
 
-let cmd = "npm";
-if (platform() === "win32") {
-  cmd = "npm.cmd";
-}
+const isWindows = platform() === 'win32';
+const cmd = isWindows ? 'npm.cmd' : 'npm';
 
 /**
  * @param {number} code 
@@ -22,7 +19,7 @@ function killProcess(code) {
  */
 function watch(server) {
   /**
-   * @type {(import('child_process').ChildProcess) | null}
+   * @type {ReturnType<typeof execa>}
    */
   let nodeGuiProcess = null;
 
@@ -34,22 +31,30 @@ function watch(server) {
 
   const startNodeGui = {
     name: "nodegui-main-watcher",
-    writeBundle() {
+    async writeBundle() {
       if (nodeGuiProcess && !nodeGuiProcess.killed) {
-        nodeGuiProcess?.off('close', killProcess);
+        nodeGuiProcess?.removeAllListeners();
 
-        if (platform() === "win32") {
+        if (isWindows) {
           try {
-            execSync(`taskkill /F /T /PID ${nodeGuiProcess.pid}`); // windows specific
+            execaCommandSync(`taskkill /F /T /PID ${nodeGuiProcess?.pid}`);
           } catch {
             console.log('error killing node-gui process');
           }
         } else {
-          nodeGuiProcess.kill();
+          nodeGuiProcess?.kill();
         }
       }
       
-      nodeGuiProcess = execa(cmd, ["exec", "qode", "--inspect", "."], { stdio: "inherit", env });
+      nodeGuiProcess = execa(
+        cmd,
+        ["exec", "qode", "--inspect", "."],
+        {
+          stdio: 'inherit',
+          env: env,
+          windowsHide: true,
+        },
+      );
       nodeGuiProcess?.on("close", killProcess);
     }
   };
