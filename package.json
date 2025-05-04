@@ -8,7 +8,8 @@
     "postbuild": "node scripts/postbuild.mjs",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "qode ./dist/index.js"
+    "preview": "qode ./dist/index.js",
+    "deploy": "npm run build && nodegui-packer --pack ./dist"
   },
   "dependencies": {
     "@cervisebas/react-nodegui": "^0.0.2-beta",
