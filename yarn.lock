@@ -175,10 +175,10 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-"@cervisebas/react-nodegui@^0.0.3-beta":
-  version "0.0.3-beta"
-  resolved "https://registry.yarnpkg.com/@cervisebas/react-nodegui/-/react-nodegui-0.0.3-beta.tgz#ea57bdb4676adb9d29a4d8041918010223625fe2"
-  integrity sha512-yPN7E0nsZGdOMP6JF3iKVDqnnE65UkwDWzGjj9M7OIlmfGF2woG3fIXGzmrQVPX6N9s2xUcaZhCn5SBIzyXJnQ==
+"@cervisebas/react-nodegui@^0.0.6-beta":
+  version "0.0.6-beta"
+  resolved "https://registry.yarnpkg.com/@cervisebas/react-nodegui/-/react-nodegui-0.0.6-beta.tgz#b96bbf6f66f333d6e33d2670f8b0e7d9eed9deda"
+  integrity sha512-30bLJHDIKX75XDSoeYJHI7tgVEnmLsQKshsNX5GP7MG5hiZJijeESVILjGbg3Ds6/v+5S1kfIBot8PqiXgry/g==
   dependencies:
     "@nodegui/nodegui" "^0.71.0"
     phin "^3.7.1"
